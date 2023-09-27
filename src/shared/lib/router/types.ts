@@ -1,4 +1,6 @@
 export enum RoutesUrls {
-  signIn = "sign-in",
-  signUp = "sign-up",
+  root = "/",
+  auth = "/auth",
+  signIn = "/auth/sign-in",
+  signUp = "/auth/sign-up",
 }
