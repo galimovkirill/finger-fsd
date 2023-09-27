@@ -1,7 +1,12 @@
 import { FC } from "react";
+import { Button } from "@/shared/ui";
 
 const HomePage: FC = () => {
-  return <div>home page</div>;
+  return (
+    <div>
+      <Button>Кнопка</Button>
+    </div>
+  );
 };
 
 export { HomePage };
