@@ -1,0 +1,40 @@
+@import "./button-default.scss";
+@import "./button-size.scss";
+@import "./button-type.scss";
+@import "./button-icon-only.scss";
+
+.btn {
+  $self: &;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  &--block {
+    width: 100%;
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
+  }
+
+  &--loading {
+    #{$self}__wrapper {
+      opacity: 0.1;
+    }
+  }
+}
