@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Button } from "@/shared/ui";
-import { BellFilled } from "@ant-design/icons";
+import { HeartFilled } from "@ant-design/icons";
 
 const meta: Meta<typeof Button> = {
   title: "Controls/Button",
   component: Button,
   tags: ["autodocs"],
   args: {
-    children: "Button",
+    children: "Be happy",
   },
 };
 
@@ -16,10 +16,10 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-export const Icon: Story = {
+export const Default: Story = {};
+
+export const WithIcon: Story = {
   args: {
-    icon: <BellFilled />,
-    iconPosition: "end",
-    loading: true,
+    icon: <HeartFilled />,
   },
 };

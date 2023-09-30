@@ -4,6 +4,11 @@ import classNames from "classnames";
 import "./styles/button.scss";
 import { CircleLoader } from "@/shared/ui";
 
+/**
+ * TODO:
+ * - make loader size based on button size prop
+ */
+
 const Button: FC<ButtonProps> = ({
   icon,
   iconPosition = "end",
@@ -32,6 +37,9 @@ const Button: FC<ButtonProps> = ({
     loading && "btn--loading"
   );
 
+  const hasEndIcon = icon && iconPosition === "end";
+  const hasStartIcon = icon && iconPosition === "start";
+
   return (
     <button
       className={classes}
@@ -41,9 +49,9 @@ const Button: FC<ButtonProps> = ({
       style={{ "--btn-color-mode": `var(--${color})` }}
     >
       <div className="btn__wrapper">
-        {iconPosition === "start" && <div className="btn__start">{icon}</div>}
+        {hasStartIcon && icon}
         {children && <div>{children}</div>}
-        {iconPosition === "end" && <div className="btn__end">{icon}</div>}
+        {hasEndIcon && icon}
       </div>
 
       {loading && <CircleLoader className="btn__loader" />}
