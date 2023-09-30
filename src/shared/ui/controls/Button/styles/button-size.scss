@@ -1,0 +1,27 @@
+.btn {
+  $self: &;
+
+  &--large {
+    height: var(--control-height-large);
+    border-radius: var(--control-br-large);
+    font-size: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  &--medium {
+    height: var(--control-height-medium);
+    border-radius: var(--control-br-medium);
+    font-size: 13px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  &--small {
+    height: var(--control-height-small);
+    border-radius: var(--control-br-small);
+    font-size: 11px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
