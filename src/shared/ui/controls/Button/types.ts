@@ -18,6 +18,6 @@ export interface ButtonProps {
   icon?: JSX.Element;
   iconPosition?: ButtonIconPosition;
   loading?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onClick?: () => void;
 }
