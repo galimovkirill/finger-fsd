@@ -46,15 +46,18 @@ const Button: FC<ButtonProps> = ({
       type={nativeType}
       disabled={disabled}
       onClick={onClick}
+      data-testid="button"
       style={{ "--btn-color-mode": `var(--${color})` }}
     >
-      <div className="btn__wrapper">
+      <div data-testid="button-wrapper" className="btn__wrapper">
         {hasStartIcon && icon}
-        {children && <div>{children}</div>}
+        {children && <div data-testid="button-content">{children}</div>}
         {hasEndIcon && icon}
       </div>
 
-      {loading && <CircleLoader className="btn__loader" />}
+      {loading && (
+        <CircleLoader data-testid="button-loader" className="btn__loader" />
+      )}
     </button>
   );
 };
