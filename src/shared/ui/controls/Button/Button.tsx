@@ -12,30 +12,30 @@ import { CircleLoader } from "@/shared/ui";
 const Button: FC<ButtonProps> = ({
   icon,
   iconPosition = "end",
+  view = "default",
   size = "medium",
-  type = "default",
-  nativeType = "button",
   color = "primary",
-  disabled,
   block,
   active,
   uppercase,
   loading,
   children,
-  onClick,
+  ...props
 }) => {
   const classes = classNames(
     "btn",
     `btn--${color}`,
     `btn--${size}`,
-    `btn--${type}`,
+    `btn--${view}`,
     block && "btn--block",
     active && "btn--active",
-    disabled && "btn--disabled",
+    props.disabled && "btn--disabled",
     uppercase && "btn--uppercase",
     !children && "btn--icon-only",
     loading && "btn--loading"
   );
+
+  props.type = props.type || "button";
 
   const hasEndIcon = icon && iconPosition === "end";
   const hasStartIcon = icon && iconPosition === "start";
@@ -43,11 +43,9 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       className={classes}
-      type={nativeType}
-      disabled={disabled}
-      onClick={onClick}
       data-testid="button"
       style={{ "--btn-color-mode": `var(--${color})` }}
+      {...props}
     >
       <div data-testid="button-wrapper" className="btn__wrapper">
         {hasStartIcon && icon}

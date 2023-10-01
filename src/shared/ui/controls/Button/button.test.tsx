@@ -31,7 +31,7 @@ describe("button component", () => {
   });
 
   it("should have type submit", () => {
-    renderBtn({ nativeType: "submit" });
+    renderBtn({ type: "submit" });
     const btn = getBtn();
     expect(btn).toHaveAttribute("type", "submit");
   });
