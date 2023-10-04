@@ -24,16 +24,18 @@ describe("button component", () => {
     expect(btn).toHaveTextContent(/button/i);
   });
 
-  it("should have button type", () => {
-    renderBtn();
-    const btn = getBtn();
-    expect(btn).toHaveAttribute("type", "button");
-  });
+  describe("types", () => {
+    it("should have button type", () => {
+      renderBtn();
+      const btn = getBtn();
+      expect(btn).toHaveAttribute("type", "button");
+    });
 
-  it("should have type submit", () => {
-    renderBtn({ nativeType: "submit" });
-    const btn = getBtn();
-    expect(btn).toHaveAttribute("type", "submit");
+    it("should have submit type", () => {
+      renderBtn({ nativeType: "submit" });
+      const btn = getBtn();
+      expect(btn).toHaveAttribute("type", "submit");
+    });
   });
 
   it("should be disabled", () => {
@@ -43,43 +45,47 @@ describe("button component", () => {
     expect(btn).toHaveClass("btn--disabled");
   });
 
-  it("should have class `btn--block`", () => {
-    renderBtn({ block: true });
-    const btn = getBtn();
-    expect(btn).toHaveClass("btn--block");
+  describe("classes", () => {
+    it("should have class `btn--block`", () => {
+      renderBtn({ block: true });
+      const btn = getBtn();
+      expect(btn).toHaveClass("btn--block");
+    });
+
+    it("should have class `btn--active`", () => {
+      renderBtn({ active: true });
+      const btn = getBtn();
+      expect(btn).toHaveClass("btn--active");
+    });
+
+    it("should have class `btn--uppercase`", () => {
+      renderBtn({ uppercase: true });
+      const btn = getBtn();
+      expect(btn).toHaveClass("btn--uppercase");
+    });
   });
 
-  it("should have class `btn--active`", () => {
-    renderBtn({ active: true });
-    const btn = getBtn();
-    expect(btn).toHaveClass("btn--active");
-  });
+  describe("icon", () => {
+    it("should have icon", () => {
+      renderBtn({ icon: <UserOutlined /> });
+      expect(getBtn()).toContainElement(getBtnIcon());
+    });
 
-  it("should have class `btn--uppercase`", () => {
-    renderBtn({ uppercase: true });
-    const btn = getBtn();
-    expect(btn).toHaveClass("btn--uppercase");
-  });
+    it("should have icon at start", () => {
+      renderBtn({ icon: <UserOutlined />, iconPosition: "start" });
+      expect(getBtnWrapper().firstChild).toBe(getBtnIcon());
+    });
 
-  it("should have icon", () => {
-    renderBtn({ icon: <UserOutlined /> });
-    expect(getBtn()).toContainElement(getBtnIcon());
-  });
+    it("should have icon at the end", () => {
+      renderBtn({ icon: <UserOutlined />, iconPosition: "end" });
+      expect(getBtnWrapper().lastChild).toBe(getBtnIcon());
+    });
 
-  it("should have icon at start", () => {
-    renderBtn({ icon: <UserOutlined />, iconPosition: "start" });
-    expect(getBtnWrapper().firstChild).toBe(getBtnIcon());
-  });
-
-  it("should have icon at the end", () => {
-    renderBtn({ icon: <UserOutlined />, iconPosition: "end" });
-    expect(getBtnWrapper().lastChild).toBe(getBtnIcon());
-  });
-
-  it("should have icon without content", () => {
-    renderBtn({ icon: <UserOutlined />, children: "" });
-    const btnContent = screen.queryByTestId("button-content");
-    expect(btnContent).not.toBeInTheDocument();
+    it("should have icon without content", () => {
+      renderBtn({ icon: <UserOutlined />, children: "" });
+      const btnContent = screen.queryByTestId("button-content");
+      expect(btnContent).not.toBeInTheDocument();
+    });
   });
 
   it("should have loader", () => {
@@ -100,5 +106,27 @@ describe("button component", () => {
     expect(isValid).toBe(false);
     fireEvent.click(getBtn());
     expect(isValid).toBe(true);
+  });
+
+  describe("link button", () => {
+    const absoluteLink = "https://example.com";
+    const relativeLink = "/auth/sign-in";
+
+    it("should have `a` as root tag", () => {
+      renderBtn({ to: relativeLink });
+      expect(screen.getByRole("link")).toBeInTheDocument();
+    });
+
+    it("should have href", () => {
+      renderBtn({ to: relativeLink });
+      expect(getBtn()).toHaveAttribute("href", relativeLink);
+    });
+
+    it('should have `target="_blank"` attribute', () => {
+      renderBtn({ to: absoluteLink });
+      const btn = getBtn();
+      expect(btn).toHaveAttribute("href", absoluteLink);
+      expect(btn).toHaveAttribute("target", "_blank");
+    });
   });
 });
