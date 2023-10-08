@@ -1,6 +1,6 @@
 import { InputProps } from "@/shared/ui/controls/Input/types";
 import { FC, useState } from "react";
-import "./styles/index.scss";
+import "./index.scss";
 import classNames from "classnames";
 
 /**
