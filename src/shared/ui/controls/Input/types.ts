@@ -8,4 +8,5 @@ export interface InputProps extends Omit<HTMLProps<HTMLInputElement>, "size"> {
   placeholderAsLabel?: boolean;
   startIcon?: JSX.Element;
   endIcon?: JSX.Element;
+  onEndIconClick?: () => void;
 }

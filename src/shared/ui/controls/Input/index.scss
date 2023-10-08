@@ -59,6 +59,8 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    color: rgb(var(--base-05));
+    fill: rgb(var(--base-05));
   }
 
   &__start-icon {

@@ -58,5 +58,8 @@ export const EndIcon: Story = {
   args: {
     endIcon: <EyeFilled />,
     placeholderAsLabel: true,
+    onEndIconClick: () => {
+      alert("End icon click");
+    },
   },
 };

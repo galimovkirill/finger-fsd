@@ -12,7 +12,9 @@ import classNames from "classnames";
 
 /**
  * TODO:
- * - change text color for disabled input
+ * - add clearable prop
+ * - add handler for end icon
+ * - add validation prop
  */
 
 const Input: FC<InputProps> = ({
@@ -20,6 +22,7 @@ const Input: FC<InputProps> = ({
   value: inputValue,
   disabled,
   onChange,
+  onEndIconClick,
   placeholderAsLabel,
   startIcon,
   endIcon,
@@ -76,7 +79,15 @@ const Input: FC<InputProps> = ({
           onChange={onChange}
         />
 
-        {endIcon && <div className="input__end-icon">{endIcon}</div>}
+        {endIcon && (
+          <div
+            className="input__end-icon"
+            onClick={onEndIconClick}
+            style={{ cursor: onEndIconClick ? "pointer" : "default" }}
+          >
+            {endIcon}
+          </div>
+        )}
       </div>
     </div>
   );
