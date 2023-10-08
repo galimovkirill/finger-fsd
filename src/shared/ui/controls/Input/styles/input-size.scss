@@ -1,0 +1,19 @@
+.input {
+  &--small {
+    --input-icon-size: var(--control-height-small);
+    height: var(--control-height-small);
+    font-size: var(--control-fz-small);
+  }
+
+  &--medium {
+    --input-icon-size: var(--control-height-medium);
+    height: var(--control-height-medium);
+    font-size: var(--control-fz-medium);
+  }
+
+  &--large {
+    --input-icon-size: var(--control-height-large);
+    height: var(--control-height-large);
+    font-size: var(--control-fz-large);
+  }
+}

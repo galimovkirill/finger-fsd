@@ -1,0 +1,142 @@
+@import "./input-size.scss";
+
+.input {
+  $self: &;
+
+  --input-padding-left: 12px;
+  --input-padding-right: 12px;
+
+  display: inline-block;
+  color: rgb(var(--base-06));
+
+  &__wrapper {
+    position: relative;
+    height: inherit;
+  }
+
+  &__placeholder {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(var(--input-padding-left));
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: rgb(var(--base-05));
+  }
+
+  &__el {
+    border: none;
+    outline: none;
+    height: inherit;
+    border: 1px solid rgb(var(--base-04));
+    padding-left: var(--input-padding-left);
+    padding-right: var(--input-padding-right);
+    box-sizing: border-box;
+    color: inherit;
+    font-size: inherit;
+    transition: border-color 0.3s ease;
+
+    &::placeholder {
+      visibility: hidden;
+    }
+
+    &:disabled {
+      background-color: transparent;
+    }
+
+    #{$self}--small & {
+      border-radius: var(--control-br-small);
+    }
+
+    #{$self}--medium & {
+      border-radius: var(--control-br-medium);
+    }
+
+    #{$self}--large & {
+      border-radius: var(--control-br-large);
+    }
+  }
+
+  &__start-icon,
+  &__end-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &__start-icon {
+    left: 0;
+  }
+
+  &__end-icon {
+    right: 0;
+  }
+
+  &--focused {
+    #{$self}__placeholder {
+      opacity: 0;
+      transform: translateY(-50%)
+        translateX(calc(var(--input-padding-left) + 2px));
+      color: rgb(var(--primary));
+    }
+
+    #{$self}__el {
+      border-color: rgb(var(--primary));
+    }
+  }
+
+  &--focused,
+  &--has-value {
+    #{$self}__placeholder {
+      &--as-label {
+        top: 0;
+        transform: translateY(calc(-100% - 2px));
+        opacity: 1;
+      }
+    }
+  }
+
+  &--disabled {
+    color: rgb(var(--base-05));
+
+    #{$self}__el {
+      background: rgb(var(--base-02));
+    }
+  }
+
+  &--has-start-icon,
+  &--has-end-icon {
+    #{$self}__start-icon,
+    #{$self}__end-icon {
+      width: var(--input-icon-size);
+      height: var(--input-icon-size);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  &--has-start-icon {
+    --input-padding-left: var(--input-icon-size);
+
+    #{$self}__start-icon {
+      pointer-events: none;
+    }
+
+    #{$self}__el {
+      padding-left: calc(var(--input-icon-size));
+    }
+  }
+
+  &--has-end-icon {
+    --input-padding-right: var(--input-icon-size);
+
+    #{$self}__el {
+      padding-right: calc(var(--input-icon-size));
+    }
+  }
+}
