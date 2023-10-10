@@ -1,11 +1,15 @@
 .input {
   $self: &;
 
-  --input-padding-left: 12px;
-  --input-padding-right: 12px;
-
   display: inline-block;
   color: rgb(var(--base-06));
+
+  svg {
+    color: rgb(var(--base-05));
+    fill: rgb(var(--base-05));
+    width: var(--input-icon-size);
+    height: var(--input-icon-size);
+  }
 
   &__wrapper {
     position: relative;
@@ -15,7 +19,8 @@
   &__placeholder {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%) translateX(var(--input-padding-left));
+    left: var(--input-current-padding-left);
+    transform: translateY(-50%);
     pointer-events: none;
     transition: all 0.3s ease;
     color: rgb(var(--base-05));
@@ -26,8 +31,8 @@
     outline: none;
     height: inherit;
     border: 1px solid rgb(var(--base-04));
-    padding-left: var(--input-padding-left);
-    padding-right: var(--input-padding-right);
+    padding-left: var(--input-current-padding-left);
+    padding-right: var(--input-current-padding-right);
     box-sizing: border-box;
     color: inherit;
     font-size: inherit;
@@ -40,57 +45,55 @@
     &:disabled {
       background-color: transparent;
     }
-
-    #{$self}--small & {
-      border-radius: var(--control-br-small);
-    }
-
-    #{$self}--medium & {
-      border-radius: var(--control-br-medium);
-    }
-
-    #{$self}--large & {
-      border-radius: var(--control-br-large);
-    }
   }
 
-  &__start-icon,
-  &__end-icon {
+  &__icons {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    color: rgb(var(--base-05));
-    fill: rgb(var(--base-05));
-  }
+    display: flex;
+    gap: var(--input-icons-gap);
 
-  &__start-icon {
-    left: 0;
-  }
+    &--start {
+      left: 0;
+      padding-left: var(--input-base-padding-left);
+    }
 
-  &__end-icon {
-    right: 0;
+    &--end {
+      right: 0;
+      padding-right: var(--input-base-padding-right);
+    }
   }
 
   &--focused {
-    #{$self}__placeholder {
-      opacity: 0;
-      transform: translateY(-50%)
-        translateX(calc(var(--input-padding-left) + 2px));
-      color: rgb(var(--primary));
-    }
-
     #{$self}__el {
       border-color: rgb(var(--primary));
+    }
+
+    #{$self}__placeholder {
+      color: rgb(var(--primary));
     }
   }
 
   &--focused,
   &--has-value {
     #{$self}__placeholder {
-      &--as-label {
+      opacity: 0;
+      transform: translateY(-50%) translateX(2px);
+    }
+  }
+
+  &--as-label {
+    #{$self}__placeholder {
+      opacity: 1;
+    }
+
+    &#{$self}--focused,
+    &#{$self}--has-value {
+      #{$self}__placeholder {
+        transform: translateY(calc(-100% - 4px));
         top: 0;
-        transform: translateY(calc(-100% - 2px));
-        opacity: 1;
+        left: 0;
       }
     }
   }
@@ -103,58 +106,30 @@
     }
   }
 
-  &--has-start-icon,
-  &--has-end-icon {
-    #{$self}__start-icon,
-    #{$self}__end-icon {
-      width: var(--input-icon-size);
-      height: var(--input-icon-size);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      svg {
-        width: 16px;
-        height: 16px;
-      }
-    }
-  }
-
-  &--has-start-icon {
-    --input-padding-left: var(--input-icon-size);
-
-    #{$self}__start-icon {
-      pointer-events: none;
-    }
-
-    #{$self}__el {
-      padding-left: calc(var(--input-icon-size));
-    }
-  }
-
-  &--has-end-icon {
-    --input-padding-right: var(--input-icon-size);
-
-    #{$self}__el {
-      padding-right: calc(var(--input-icon-size));
-    }
-  }
-
   &--small {
-    --input-icon-size: var(--control-height-small);
     height: var(--control-height-small);
     font-size: var(--control-fz-small);
+
+    #{$self}__el {
+      border-radius: var(--control-br-small);
+    }
   }
 
   &--medium {
-    --input-icon-size: var(--control-height-medium);
     height: var(--control-height-medium);
     font-size: var(--control-fz-medium);
+
+    #{$self}__el {
+      border-radius: var(--control-br-medium);
+    }
   }
 
   &--large {
-    --input-icon-size: var(--control-height-large);
     height: var(--control-height-large);
     font-size: var(--control-fz-large);
+
+    #{$self}__el {
+      border-radius: var(--control-br-large);
+    }
   }
 }

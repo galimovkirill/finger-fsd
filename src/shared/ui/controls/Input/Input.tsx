@@ -2,6 +2,7 @@ import { InputProps } from "@/shared/ui/controls/Input/types";
 import { FC, useState } from "react";
 import "./index.scss";
 import classNames from "classnames";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 /**
  * TODO: write tests:
@@ -12,25 +13,23 @@ import classNames from "classnames";
 
 /**
  * TODO:
- * - add clearable prop
- * - add handler for end icon
  * - add validation prop
  */
 
 const Input: FC<InputProps> = ({
   size = "medium",
-  value: inputValue,
+  value,
   disabled,
-  onChange,
+  onChange: onChangeHandler,
   onEndIconClick,
   placeholderAsLabel,
   startIcon,
   endIcon,
+  clearable,
   ...props
 }) => {
   const [isFocused, setFocused] = useState(false);
-
-  const value = inputValue || props.defaultValue;
+  const onChange = onChangeHandler ?? (() => {});
 
   const classes = classNames(
     "input",
@@ -39,13 +38,42 @@ const Input: FC<InputProps> = ({
     disabled && "input--disabled",
     value && "input--has-value",
     startIcon && "input--has-start-icon",
-    endIcon && "input--has-end-icon"
+    endIcon && "input--has-end-icon",
+    clearable && "input--clearable",
+    placeholderAsLabel && "input--as-label"
   );
 
-  const placeholderClasses = classNames(
-    "input__placeholder",
-    placeholderAsLabel && "input__placeholder--as-label"
-  );
+  const getCssVars = () => {
+    const basePadding = 12;
+    const additionalPadding = 4;
+    const iconSize = 14;
+    const iconsGap = 6;
+
+    // calculate padding left
+    let paddingLeft = basePadding;
+    if (startIcon) {
+      paddingLeft += iconSize;
+      paddingLeft += basePadding;
+    }
+
+    // calculate padding right
+    let paddingRight = basePadding;
+    if (clearable) paddingRight += iconSize;
+    if (endIcon) paddingRight += iconSize;
+    if (clearable || endIcon) paddingRight += additionalPadding;
+    if (clearable && endIcon) paddingRight += iconsGap;
+
+    const styles: React.CSSProperties = {
+      "--input-base-padding-left": `${basePadding}px`,
+      "--input-base-padding-right": `${basePadding}px`,
+      "--input-current-padding-left": `${paddingLeft}px`,
+      "--input-current-padding-right": `${paddingRight}px`,
+      "--input-icon-size": `${iconSize}px`,
+      "--input-icons-gap": `${iconsGap}px`,
+    };
+
+    return styles;
+  };
 
   const isPlaceholderShown = () => {
     if (!props.placeholder) {
@@ -60,13 +88,17 @@ const Input: FC<InputProps> = ({
   };
 
   return (
-    <div className={classes}>
+    <div className={classes} style={getCssVars()}>
       <div className="input__wrapper">
         {isPlaceholderShown() && (
-          <span className={placeholderClasses}>{props.placeholder}</span>
+          <span className="input__placeholder">{props.placeholder}</span>
         )}
 
-        {startIcon && <div className="input__start-icon">{startIcon}</div>}
+        <div className="input__icons input__icons--start">
+          {startIcon && (
+            <button className="input__start-icon">{startIcon}</button>
+          )}
+        </div>
 
         <input
           type="text"
@@ -76,18 +108,25 @@ const Input: FC<InputProps> = ({
           className="input__el"
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          onChange={onChange}
+          onChange={(e) => onChange(e.target.value)}
         />
 
-        {endIcon && (
-          <div
-            className="input__end-icon"
-            onClick={onEndIconClick}
-            style={{ cursor: onEndIconClick ? "pointer" : "default" }}
-          >
-            {endIcon}
-          </div>
-        )}
+        <div className="input__icons input__icons--end">
+          {clearable && (
+            <button style={{ cursor: "pointer" }} onClick={() => onChange("")}>
+              <CloseCircleOutlined />
+            </button>
+          )}
+
+          {endIcon && (
+            <button
+              onClick={onEndIconClick}
+              style={{ cursor: onEndIconClick ? "pointer" : "default" }}
+            >
+              {endIcon}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

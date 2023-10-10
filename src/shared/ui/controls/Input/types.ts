@@ -3,10 +3,13 @@ import { HTMLProps } from "react";
 
 type InputSize = ControlElementSize;
 
-export interface InputProps extends Omit<HTMLProps<HTMLInputElement>, "size"> {
+export interface InputProps
+  extends Omit<HTMLProps<HTMLInputElement>, "size" | "onChange"> {
   size?: InputSize;
   placeholderAsLabel?: boolean;
   startIcon?: JSX.Element;
   endIcon?: JSX.Element;
   onEndIconClick?: () => void;
+  clearable?: boolean;
+  onChange?: (value: string) => void;
 }

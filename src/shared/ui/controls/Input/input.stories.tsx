@@ -10,7 +10,11 @@ const meta: Meta<typeof Input> = {
   tags: ["autodocs"],
   args: {
     placeholder: "Your name",
+    placeholderAsLabel: true,
     value: "John Doe",
+    onEndIconClick: () => {
+      alert("End icon click");
+    },
   },
   parameters: {
     layout: "centered",
@@ -19,13 +23,7 @@ const meta: Meta<typeof Input> = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState(args.value);
 
-    return (
-      <Input
-        {...args}
-        value={value}
-        onChange={(e) => setValue((e.target as HTMLInputElement).value)}
-      />
-    );
+    return <Input {...args} value={value} onChange={(v) => setValue(v)} />;
   },
 };
 
@@ -41,25 +39,21 @@ export const Disabled: Story = {
   },
 };
 
-export const PlaceholderAsLabel: Story = {
-  args: {
-    placeholderAsLabel: true,
-  },
-};
-
 export const StartIcon: Story = {
   args: {
     startIcon: <UserOutlined />,
-    placeholderAsLabel: true,
   },
 };
 
 export const EndIcon: Story = {
   args: {
     endIcon: <EyeFilled />,
-    placeholderAsLabel: true,
-    onEndIconClick: () => {
-      alert("End icon click");
-    },
+  },
+};
+
+export const Clearable: Story = {
+  args: {
+    endIcon: <EyeFilled />,
+    clearable: true,
   },
 };
