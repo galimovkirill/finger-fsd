@@ -5,13 +5,6 @@ import classNames from "classnames";
 import { CloseCircleOutlined } from "@ant-design/icons";
 
 /**
- * TODO: write tests:
- * - check for each input types (text, password, number)
- * - check for placeholder
- * - check for disabled status
- */
-
-/**
  * TODO:
  * - add validation prop
  */
@@ -75,32 +68,28 @@ const Input: FC<InputProps> = ({
     return styles;
   };
 
-  const isPlaceholderShown = () => {
-    if (!props.placeholder) {
-      return false;
-    }
-
-    if (placeholderAsLabel) {
-      return true;
-    }
-
-    return !value;
-  };
-
   return (
-    <div className={classes} style={getCssVars()}>
+    <div data-testid="input" className={classes} style={getCssVars()}>
       <div className="input__wrapper">
-        {isPlaceholderShown() && (
-          <span className="input__placeholder">{props.placeholder}</span>
+        {props.placeholder && (
+          <span data-testid="input-placeholder" className="input__placeholder">
+            {props.placeholder}
+          </span>
         )}
 
-        <div className="input__icons input__icons--start">
-          {startIcon && (
-            <button className="input__start-icon">{startIcon}</button>
-          )}
-        </div>
+        {startIcon && (
+          <div className="input__icons input__icons--start">
+            <button
+              data-testid="input-start-icon"
+              className="input__start-icon"
+            >
+              {startIcon}
+            </button>
+          </div>
+        )}
 
         <input
+          data-testid="input-element"
           type="text"
           {...props}
           value={value}
@@ -111,22 +100,29 @@ const Input: FC<InputProps> = ({
           onChange={(e) => onChange(e.target.value)}
         />
 
-        <div className="input__icons input__icons--end">
-          {clearable && (
-            <button style={{ cursor: "pointer" }} onClick={() => onChange("")}>
-              <CloseCircleOutlined />
-            </button>
-          )}
+        {(clearable || endIcon) && (
+          <div className="input__icons input__icons--end">
+            {clearable && (
+              <button
+                data-testid="input-clear"
+                style={{ cursor: "pointer" }}
+                onClick={() => onChange("")}
+              >
+                <CloseCircleOutlined />
+              </button>
+            )}
 
-          {endIcon && (
-            <button
-              onClick={onEndIconClick}
-              style={{ cursor: onEndIconClick ? "pointer" : "default" }}
-            >
-              {endIcon}
-            </button>
-          )}
-        </div>
+            {endIcon && (
+              <button
+                data-testid="input-end-icon"
+                onClick={onEndIconClick}
+                style={{ cursor: onEndIconClick ? "pointer" : "default" }}
+              >
+                {endIcon}
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
