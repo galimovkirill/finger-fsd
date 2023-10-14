@@ -1,7 +1,7 @@
 import { ButtonProps } from "./types";
 import { FC, ElementType, HTMLProps } from "react";
 import classNames from "classnames";
-import "./styles/button.scss";
+import "./index.scss";
 import { CircleLoader } from "@/shared/ui";
 import { isStartsWithHttp } from "@/shared/lib/utils/url";
 

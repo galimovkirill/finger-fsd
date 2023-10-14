@@ -1,4 +1,6 @@
-type ButtonSize = "small" | "medium" | "large";
+import { ControlElementSize } from "@/shared/ui/controls/types";
+
+type ButtonSize = ControlElementSize;
 type ButtonType = "default" | "flat" | "outline";
 type ButtonColor = "primary" | "success" | "danger";
 type ButtonIconPosition = "start" | "end";
