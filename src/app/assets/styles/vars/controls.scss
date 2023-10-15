@@ -3,6 +3,7 @@
 */
 
 :root {
+  // Height
   --control-height-small: 24px;
   --control-height-medium: 40px;
   --control-height-large: 48px;
@@ -16,4 +17,9 @@
   --control-fz-small: 11px;
   --control-fz-medium: 13px;
   --control-fz-large: 15px;
+
+  // Padding
+  --control-px-small: 8px;
+  --control-px-medium: 12px;
+  --control-px-large: 20px;
 }

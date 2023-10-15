@@ -37,7 +37,12 @@ const Input: FC<InputProps> = ({
   );
 
   const getCssVars = () => {
-    const basePadding = 12;
+    const basePadding = Number(
+      getComputedStyle(document.body)
+        .getPropertyValue(`--control-px-${size}`)
+        .replace("px", "")
+    );
+    console.log(basePadding);
     const additionalPadding = 4;
     const iconSize = 14;
     const iconsGap = 6;
