@@ -7,7 +7,9 @@ export interface SelectOption {
 export interface SelectProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   options: SelectOption[];
-  value: SelectOption;
+  value: SelectOption | null;
+  placeholder?: string;
   disabled?: boolean;
-  onChange?: (option: SelectOption) => void;
+  clearable?: boolean;
+  onChange?: (option: SelectProps['value']) => void;
 }

@@ -40,8 +40,17 @@
     text-overflow: ellipsis;
   }
 
-  &__arrow {
-    margin-left: 8px;
+  &__placeholder {
+    color: rgb(var(--base-05));
+  }
+
+  &__icon {
+    margin-left: auto;
+    padding-left: 8px;
+  }
+
+  &__clear {
+    cursor: pointer;
   }
 }
 
