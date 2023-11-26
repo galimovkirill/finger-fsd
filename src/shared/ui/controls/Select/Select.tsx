@@ -1,6 +1,6 @@
 import { SelectOption, SelectProps } from "@/shared/ui/controls/Select/types";
 import { FC, MouseEvent, useRef, useState } from "react";
-import { CaretDownOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { CaretDownOutlined, CaretUpOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import "./index.scss";
 import classNames from "classnames";
 import { useClickOutside } from "@react-hookz/web";
@@ -68,18 +68,20 @@ const Select: FC<SelectProps> = ({
   };
 
   const FieldIcons = () => {
+    const baseIconClass = 'select-field__icon'
+
     if (isHovered && clearable && selectedOption?.value) {
       return (
         <button
           onClick={onClearButtonClick}
-          className="select-field__icon select-field__clear"
+          className={["select-field__clear", baseIconClass].join(' ')}
         >
           <CloseCircleOutlined />
         </button>
       );
     }
 
-    return <CaretDownOutlined className="select-field__icon" />;
+    return isDropdownShown ? <CaretUpOutlined className={baseIconClass} /> : <CaretDownOutlined className={baseIconClass} />;
   };
 
   return (
@@ -96,11 +98,12 @@ const Select: FC<SelectProps> = ({
 
       {isDropdownShown && (
         <div className="select-dropdown select__dropdown">
-          {options.map((option) => {
+          {options.map((option, index) => {
             return (
               <div
                 className={getOptionClasses(option)}
                 onClick={() => onChangeHandler(option)}
+                key={index}
               >
                 {option.label}
               </div>
