@@ -1,5 +1,4 @@
-import { SignInPage, SignUpPage } from "@/pages/auth";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { RoutesUrls } from "@/shared/lib/router";
 import React from "react";
 import { Layout } from "@/app/Layout";
@@ -10,15 +9,6 @@ const Router = () => {
     <Routes>
       <Route path={RoutesUrls.root} element={<Layout />}>
         <Route index element={<HomePage />} />
-      </Route>
-
-      <Route path={RoutesUrls.root} element={<Layout />}>
-        <Route
-          path={RoutesUrls.auth}
-          element={<Navigate to={RoutesUrls.signIn} />}
-        />
-        <Route path={RoutesUrls.signIn} element={<SignInPage />} />
-        <Route path={RoutesUrls.signUp} element={<SignUpPage />} />
       </Route>
 
       <Route
